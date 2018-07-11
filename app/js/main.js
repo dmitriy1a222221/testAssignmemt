@@ -4,27 +4,28 @@ document.addEventListener('DOMContentLoaded', () => {
         let wrappBlock = document.querySelector('.wrapp-block');
         let counterBlock = document.querySelector('.counter');
         let elments = document.querySelectorAll('.wrapp-block li');
-        let count = {countNum: 0};
-        let currentEl = [];
+        let count = 0;
+        let currentEl = 1;
         let arrSrollHeight = [0, 100, 200, 300, 400];
+        console.log(count);
 
 
         function currentElement () {
-            switch (count[0]) {
+            switch (count) {
                 case 0:
-                    currentEl[0] = 1;
+                    currentEl = 1;
                     break;
                 case 1:
-                    currentEl[0] = 2;
+                    currentEl = 2;
                     break;
                 case 2:
-                    currentEl[0] = 3;
+                    currentEl = 3;
                     break;
                 case 3:
-                    currentEl[0] = 4;
+                    currentEl = 4;
                     break;
                 case 4:
-                    currentEl[0] = 5;
+                    currentEl = 5;
                 break;
 
             }
@@ -33,14 +34,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         document.addEventListener('keyup', (event) => {
-            currentElement();
             const keyName = event.key;
             if(keyName === 'ArrowUp'){
                 (function keyUp() {
-                    count[0]--;
-                    console.log(count[0]);
-                    if(count[0] < 0) count[0] = arrSrollHeight.length;
-                    wrappBlock.style.cssText = `transform: translateY(-${arrSrollHeight[count[0]]}vh)`
+                    count--;
+                    if(count < 0) count = arrSrollHeight.length-1;
+                    currentElement();
+                    wrappBlock.style.cssText = `transform: translateY(-${arrSrollHeight[count]}vh)`
                 })()
             }
 
@@ -49,13 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const keyName = event.key;
             if(keyName === 'ArrowDown'){
                 (function keyDown() {
-                    count[0]++;
-                    if(count[0] = arrSrollHeight.length) count[0] = 0;
-                    wrappBlock.style.cssText = `transform: translateY(-${arrSrollHeight[count[0]]}vh)`
+                    count++;
+                    currentElement();
+                    if(count === arrSrollHeight.length) count = 0;
+                    wrappBlock.style.cssText = `transform: translateY(-${arrSrollHeight[count]}vh)`
                 })()
             }
 
         });
-        counterBlock.innerHTML = `${currentEl[0]}/${elments.length}`;
+        counterBlock.innerHTML = `${currentEl}/${elments.length}`;
     })()
 });
