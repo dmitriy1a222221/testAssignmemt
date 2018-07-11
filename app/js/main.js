@@ -1,25 +1,24 @@
 
 document.addEventListener('DOMContentLoaded', () => {
-    (function sroll() {
-        let wrappBlock = document.querySelector('.wrapp-block');
+    (function scroll() {
+        let counter__list = document.querySelector('.counter__list');
         let counterBlock = document.querySelector('.counter');
-        let elments = document.querySelectorAll('.wrapp-block li');
+        let elements = document.querySelectorAll('.counter__list li');
         let count = 0;
         let currElement = [1];
-        let arrSrollHeight = [0, 100, 200, 300, 400];
+        let arrScrollHeight = [0, 100, 200, 300, 400];
 
-        counterBlock.innerHTML = `${1}/${elments.length}`;
+        counterBlock.innerHTML = `${1}/${elements.length}`;
 
         document.addEventListener('keyup', (event) => {
             const keyName = event.key;
             if(keyName === 'ArrowUp'){
                 (function keyUp() {
                     count--;
-                    if(count < 0) count = arrSrollHeight.length-1;
+                    if(count < 0) count = arrScrollHeight.length-1;
                     currElement.splice(0, 1, currentElement());
-                    counterBlock.innerHTML = `${currElement}/${elments.length}`;
-                    console.log(currElement);
-                    wrappBlock.style.cssText = `transform: translateY(-${arrSrollHeight[count]}vh)`
+                    counterBlock.innerHTML = `${currElement}/${elements.length}`;
+                    counter__list.style.cssText = `transform: translateY(-${arrScrollHeight[count]}vh)`
                 })()
             }
 
@@ -29,19 +28,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if(keyName === 'ArrowDown'){
                 (function keyDown() {
                     count++;
+                    if(count === arrScrollHeight.length) count = 0;
                     currElement.splice(0, 1, currentElement());
-
-                    console.log(currElement);
-                    if(count === arrSrollHeight.length) count = 0;
-                    counterBlock.innerHTML = `${currElement}/${elments.length}`;
-                    wrappBlock.style.cssText = `transform: translateY(-${arrSrollHeight[count]}vh)`
+                    counterBlock.innerHTML = `${currElement}/${elements.length}`;
+                    counter__list.style.cssText = `transform: translateY(-${arrScrollHeight[count]}vh)`
                 })()
             }
 
         });
         function currentElement () {
             console.log(count);
-            var currentEl;
+            let currentEl;
             switch (count) {
                 case 0:
                     currentEl = 1;
